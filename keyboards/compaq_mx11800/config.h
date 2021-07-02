@@ -20,15 +20,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID    0xFEED
-#define PRODUCT_ID   0x0000
+#define VENDOR_ID    0x049F
+#define PRODUCT_ID   0x000E
 #define DEVICE_VER   0x0001
-#define MANUFACTURER keebnewb
-#define PRODUCT      compaq_mx11800
+#define MANUFACTURER Compaq Computer Corporation
+#define PRODUCT      COMPAQ MC-11800
+
+// Add teensy core
+#define CORE_TEENSY
 
 /* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 3
+#define MATRIX_ROWS 8
+#define MATRIX_COLS 16
 
 /*
  * Keyboard Matrix Assignments
@@ -40,9 +43,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { D0, D5 }
-#define MATRIX_COL_PINS { F1, F0, B0 }
-#define UNUSED_PINS
+#define MATRIX_ROW_PINS { A0, A1, A2, A3, A4, A5, A6, A7 }
+#define MATRIX_COL_PINS { F6, F7, E0, E1, C0, C1, C2, C3, C4, C5, C6, C7, F5, F4, F3, F2 }
+// LED PINS are B7, D6, D7
+#define UNUSED_PINS { B6, B5, B4, B4, B2, B1, B0, D0, D1, D3, D4, E7, E6, E5, E4, F1, F0 }
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -58,38 +62,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define LED_COMPOSE_PIN B3
 //#define LED_KANA_PIN B4
 
-//#define BACKLIGHT_PIN B7
-//#define BACKLIGHT_LEVELS 3
-//#define BACKLIGHT_BREATHING
-
-//#define RGB_DI_PIN E2
-//#ifdef RGB_DI_PIN
-//#    define RGBLED_NUM 16
-//#    define RGBLIGHT_HUE_STEP 8
-//#    define RGBLIGHT_SAT_STEP 8
-//#    define RGBLIGHT_VAL_STEP 8
-//#    define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-//#    define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-/*== all animations enable ==*/
-//#    define RGBLIGHT_ANIMATIONS
-/*== or choose animations ==*/
-//#    define RGBLIGHT_EFFECT_BREATHING
-//#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
-//#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-//#    define RGBLIGHT_EFFECT_SNAKE
-//#    define RGBLIGHT_EFFECT_KNIGHT
-//#    define RGBLIGHT_EFFECT_CHRISTMAS
-//#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
-//#    define RGBLIGHT_EFFECT_RGB_TEST
-//#    define RGBLIGHT_EFFECT_ALTERNATING
-/*== customize breathing effect ==*/
-/*==== (DEFAULT) use fixed table instead of exp() and sin() ====*/
-//#    define RGBLIGHT_BREATHE_TABLE_SIZE 256      // 256(default) or 128 or 64
-/*==== use exp() and sin() ====*/
-//#    define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
-//#    define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
-//#endif
-
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 
@@ -101,52 +73,85 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
- * This is useful for the Windows task manager shortcut (ctrl+shift+esc).
- */
-//#define GRAVE_ESC_CTRL_OVERRIDE
+// This is the default EEPROM max address to use for dynamic keymaps.
+// The default is the Teensy 2.0++ EEPROM max address.
+// Explicitly override it if the keyboard uses a microcontroller with
+// more or less EEPROM.
+#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR 4095
 
-/*
- * Force NKRO
- *
- * Force NKRO (nKey Rollover) to be enabled by default, regardless of the saved
- * state in the bootmagic EEPROM settings. (Note that NKRO must be enabled in the
- * makefile for this to work.)
- *
- * If forced on, NKRO can be disabled via magic key (default = LShift+RShift+N)
- * until the next keyboard reset.
- *
- * NKRO may prevent your keystrokes from being detected in the BIOS, but it is
- * fully operational during normal computer usage.
- *
- * For a less heavy-handed approach, enable NKRO via magic key (LShift+RShift+N)
- * or via bootmagic (hold SPACE+N while plugging in the keyboard). Once set by
- * bootmagic, NKRO mode will always be enabled until it is toggled again during a
- * power-up.
- *
- */
-//#define FORCE_NKRO
+/* Bootmagic Lite key configuration */
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 13
 
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
+// Leds at start bootmagic
+#define BOOTMAGIC_LEDSEQ_COUNT 3
+#define BOOTMAGIC_LEDSEQ_STEP 200
 
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
+// Layer led blink time
+#define LAYER_BLINK_TIME 200
 
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-/* Bootmagic Lite key configuration */
-//#define BOOTMAGIC_LITE_ROW 0
-//#define BOOTMAGIC_LITE_COLUMN 0
+// Applies a transformation to the movement before sending to the host (see link)
+#define PS2_MOUSE_USE_2_1_SCALING
+
+// Define a lower presition for move
+#define PS2_MOUSE_X_MULTIPLIER 3
+#define PS2_MOUSE_Y_MULTIPLIER 3
+#define PS2_MOUSE_V_MULTIPLIER 1
+
+// Define a higher presition on scroll
+#define PS2_MOUSE_SCROLL_DIVISOR_H 3
+#define PS2_MOUSE_SCROLL_DIVISOR_V 3
+
+// Swap left/rigth mouse buttons
+#define REMAP_MOUSE_BTN_LEFT (PS2_MOUSE_BTN_RIGHT)
+#define REMAP_MOUSE_BTN_RIGHT (PS2_MOUSE_BTN_LEFT)
+
+// Define Scroll button (this is the button after remap)
+#define PS2_MOUSE_SCROLL_BTN_MASK (1 << PS2_MOUSE_BTN_RIGHT)
+
+/* PS2/Mouse configuration */
+#ifdef PS2_USE_USART
+#define PS2_CLOCK_PORT  PORTD
+#define PS2_CLOCK_PIN   PIND
+#define PS2_CLOCK_DDR   DDRD
+#define PS2_CLOCK_BIT   5
+#define PS2_DATA_PORT   PORTD
+#define PS2_DATA_PIN    PIND
+#define PS2_DATA_DDR    DDRD
+#define PS2_DATA_BIT    2
+
+/* synchronous, odd parity, 1-bit stop, 8-bit data, sample at falling edge */
+/* set DDR of CLOCK as input to be slave */
+#define PS2_USART_INIT() do {   \
+    PS2_CLOCK_DDR &= ~(1<<PS2_CLOCK_BIT);   \
+    PS2_DATA_DDR &= ~(1<<PS2_DATA_BIT);     \
+    UCSR1C = ((1 << UMSEL10) |  \
+              (3 << UPM10)   |  \
+              (0 << USBS1)   |  \
+              (3 << UCSZ10)  |  \
+              (0 << UCPOL1));   \
+    UCSR1A = 0;                 \
+    UBRR1H = 0;                 \
+    UBRR1L = 0;                 \
+} while (0)
+#define PS2_USART_RX_INT_ON() do {  \
+    UCSR1B = ((1 << RXCIE1) |       \
+              (1 << RXEN1));        \
+} while (0)
+#define PS2_USART_RX_POLL_ON() do { \
+    UCSR1B = (1 << RXEN1);          \
+} while (0)
+#define PS2_USART_OFF() do {    \
+    UCSR1C = 0;                 \
+    UCSR1B &= ~((1 << RXEN1) |  \
+                (1 << TXEN1));  \
+} while (0)
+#define PS2_USART_RX_READY      (UCSR1A & (1<<RXC1))
+#define PS2_USART_RX_DATA       UDR1
+#define PS2_USART_ERROR         (UCSR1A & ((1<<FE1) | (1<<DOR1) | (1<<UPE1)))
+#define PS2_USART_RX_VECT       USART1_RX_vect
+#endif

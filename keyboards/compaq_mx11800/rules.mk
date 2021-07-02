@@ -1,16 +1,16 @@
 # MCU name
-MCU = atmega32u4
+MCU = at90usb1286
 
 # Bootloader selection
-BOOTLOADER = atmel-dfu
+BOOTLOADER = halfkay
 
 # Build Options
 #   change yes to no to disable
 #
 BOOTMAGIC_ENABLE = lite     # Virtual DIP switch configuration
-MOUSEKEY_ENABLE = yes       # Mouse keys
+MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
-CONSOLE_ENABLE = no         # Console for debug
+CONSOLE_ENABLE = yes         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
@@ -20,3 +20,13 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
+
+# PS2 Trackball
+PS2_MOUSE_ENABLE = yes	# Ports used D2 & D5
+PS2_USE_USART = yes
+
+# Firmware format
+FIRMWARE_FORMAT = hex
+
+# Optimization
+LTO_ENABLE = yes

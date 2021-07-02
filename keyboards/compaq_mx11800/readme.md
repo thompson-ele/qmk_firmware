@@ -1,12 +1,12 @@
-# compaq_mx11800
+# Compaq MX-11800
 
 ![compaq_mx11800](imgur.com image replace me!)
 
 *A short description of the keyboard/project*
 
-* Keyboard Maintainer: [keebnewb](https://github.com/yourusername)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [keebnewb](https://github.com/thompson-ele)
+* Hardware Supported: Compaq MX-11800 using a Teensy++2.0 controller
+* Hardware Availability: You can purchase a Teensy++2.0 controller here [Teensy++2.0](https://www.pjrc.com/store/teensypp.html)
 
 Make example for this keyboard (after setting up your build environment):
 
